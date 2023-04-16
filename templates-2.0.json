@@ -197,21 +197,6 @@
     },
     {
       "type": 1,
-      "title": "CrateDB",
-      "description": "An open-source distributed SQL database",
-      "categories": ["database"],
-      "platform": "linux",
-      "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/cratedb.png",
-      "image": "crate:latest",
-      "ports": ["4200/tcp", "4300/tcp"],
-      "volumes": [
-        {
-          "container": "/data"
-        }
-      ]
-    },
-    {
-      "type": 1,
       "title": "Elasticsearch",
       "description": "Open-source search and analytics engine",
       "categories": ["database"],
@@ -275,34 +260,6 @@
         }
       ],
       "command": "server /data --console-address ':9001'"
-    },
-    {
-      "type": 1,
-      "title": "Scality S3",
-      "description": "Standalone AWS S3 protocol server",
-      "categories": ["storage"],
-      "platform": "linux",
-      "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/scality-s3.png",
-      "image": "scality/s3server",
-      "ports": ["8000/tcp"],
-      "env": [
-        {
-          "name": "SCALITY_ACCESS_KEY",
-          "label": "Scality S3 access key"
-        },
-        {
-          "name": "SCALITY_SECRET_KEY",
-          "label": "Scality S3 secret key"
-        }
-      ],
-      "volumes": [
-        {
-          "container": "/usr/src/app/localData"
-        },
-        {
-          "container": "/usr/src/app/localMetadata"
-        }
-      ]
     },
     {
       "type": 1,
@@ -445,22 +402,6 @@
     },
     {
       "type": 1,
-      "title": "Ghost",
-      "description": "Free and open-source blogging platform",
-      "categories": ["blog"],
-      "note": "Access the blog management interface under <code>/ghost/</code>.",
-      "platform": "linux",
-      "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/ghost.png",
-      "image": "ghost:latest",
-      "ports": ["2368/tcp"],
-      "volumes": [
-        {
-          "container": "/var/lib/ghost/content"
-        }
-      ]
-    },
-    {
-      "type": 1,
       "title": "Joomla",
       "description": "Another free and open-source CMS",
       "categories": ["CMS"],
@@ -497,22 +438,6 @@
       "volumes": [
         {
           "container": "/var/www/html"
-        }
-      ]
-    },
-    {
-      "type": 1,
-      "title": "Plone",
-      "description": "A free and open-source CMS built on top of Zope",
-      "note": "Default user and password are admin/admin",
-      "categories": ["CMS"],
-      "platform": "linux",
-      "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/plone.png",
-      "image": "plone:latest",
-      "ports": ["8080/tcp"],
-      "volumes": [
-        {
-          "container": "/data"
         }
       ]
     },
@@ -572,32 +497,6 @@
           "container": "/host/proc",
           "bind": "/proc",
           "readonly": true
-        }
-      ]
-    },
-    {
-      "type": 1,
-      "title": "Mautic",
-      "description": "Open-source marketing automation platform",
-      "categories": ["marketing"],
-      "platform": "linux",
-      "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/mautic.png",
-      "image": "mautic/mautic:latest",
-      "env": [
-        {
-          "name": "MAUTIC_DB_HOST",
-          "label": "MySQL database host",
-          "type": "container"
-        },
-        {
-          "name": "MAUTIC_DB_PASSWORD",
-          "label": "Database password"
-        }
-      ],
-      "ports": ["80/tcp"],
-      "volumes": [
-        {
-          "container": "/var/www/html"
         }
       ]
     },
@@ -701,37 +600,6 @@
         },
         {
           "container": "/app/includes/shared/media"
-        }
-      ]
-    },
-    {
-      "type": 1,
-      "title": "Dokku",
-      "description": "Dokku setup as a container",
-      "categories": ["PaaS"],
-      "platform": "linux",
-      "logo": "",
-      "image":"dokku/dokku",
-      "ports": ["22/tcp", "80/tcp", "443/tcp"],
-      "volumes": [{
-        "container": "/mnt/dokku",
-        "bind": "/var/lib/dokku"
-      },
-      {
-        "container": "/var/run/docker.sock",
-        "bind": "/var/run/docker.sock"
-      }],
-      "env":[
-        {
-          "name": "DOKKU_HOSTNAME",
-          "label": "Dokku hostname",
-          "description": "Global hostname to be registered by Dokku"
-        },
-        {
-          "name": "DOKKU_HOST_ROOT",
-          "label": "Dokku host root",
-          "default": "/var/lib/dokku/home/dokku",
-          "description": "Image build cache path. Generally set to <data dir> + '/home/dokku'"
         }
       ]
     },
@@ -1061,61 +929,6 @@
         {
           "name": "owner_api_password",
           "label": "API Password"
-        }
-      ]
-    },
-    {
-      "type": 3,
-      "title": "Dokku",
-      "description": "Dokku setup as a compose file",
-      "categories": ["PaaS"],
-      "platform": "linux",
-      "logo": "",
-      "repository": {
-        "url": "https://github.com/portainer/templates",
-        "stackfile": "stacks/dokku/docker-compose.yml"
-      },
-      "env": [
-        {
-          "name": "VERSION",
-          "label": "Dokku version",
-          "description": "Version of Dokku to use ('latest' if empty)",
-          "default": "latest"
-        },
-        {
-          "name": "DOKKU_HOSTNAME",
-          "label": "Dokku hostname",
-          "description": "Global hostname to be registered by Dokku"
-        },
-        {
-          "name": "VOLUME_PATH",
-          "label": "Dokku volume path",
-          "description": "Host path to be bound to /mnt/dokku (`/var/lib/dokku` if empty)",
-          "default": "/var/lib/dokku"
-        },
-        {
-          "name": "DOKKU_HOST_ROOT",
-          "label": "Dokku host root",
-          "description": "Image build cache path. Generally set to <data dir> + '/home/dokku'",
-          "default": "/var/lib/dokku/home/dokku"
-        },
-        {
-          "name": "SSH_PORT",
-          "label": "SSH port",
-          "description": "Host port to expose SSH port of Dokku (22 if empty)",
-          "default": "22"
-        },
-        {
-          "name": "HTTP_PORT",
-          "label": "HTTP port",
-          "description": "Host port to expose HTTP port of Dokku (80 if empty)",
-          "default": "80"
-        },
-        {
-          "name": "HTTPS_PORT",
-          "label": "HTTPS port",
-          "description": "Host port to expose HTTPS port of Dokku (443 if empty)",
-          "default": "443"
         }
       ]
     },
